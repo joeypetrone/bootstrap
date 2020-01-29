@@ -106,7 +106,7 @@ const ducks = [
 ];
 
 // PRINT TO DOM
-const printToDom = (divId, textToPrint) => {
+const duckPrinter = (divId, textToPrint) => {
     const selectedId = document.getElementById(divId);
     selectedId.innerHTML = textToPrint;
 }
@@ -126,14 +126,56 @@ const duckBuilder = (quacks) => {
         domString += '</div>';    
         domString += '</div>';    
     }
-    printToDom('pond', domString);
+    duckPrinter('pond', domString);
+};
+
+// FILTER FUNCTIONS
+
+const chooseColor = (e) => {
+    const buttonId = e.target.id;
+    const selectedDucks = [];
+    for (let i = 0; i < ducks.length; i++)
+        if (ducks[i].color === buttonId) {
+            selectedDucks.push(ducks[i]);
+        }
+    duckBuilder(selectedDucks);
 };
 
 
+const chooseGender = (e) => {
+    const buttonId = e.target.id;
+    const selectedDucks = [];
+    for (let i = 0; i < ducks.length; i++)
+        if (ducks[i].gender === buttonId) {
+            selectedDucks.push(ducks[i]);
+        }
+    duckBuilder(selectedDucks);
+};
+
+const chooseRubber = (e) => {
+    const buttonId = e.target.id;
+    const selectedDucks = [];
+    for (let i = 0; i < ducks.length; i++)
+        if (ducks[i].isRubber) {
+            selectedDucks.push(ducks[i]);
+        }
+    duckBuilder(selectedDucks);
+};
+
+// EVENTS
+const events = () => {
+document.getElementById('blue').addEventListener('click', chooseColor);
+document.getElementById('green').addEventListener('click', chooseColor);
+document.getElementById('yellow').addEventListener('click', chooseColor);
+document.getElementById('female').addEventListener('click', chooseGender);
+document.getElementById('male').addEventListener('click', chooseGender);
+document.getElementById('rubber').addEventListener('click', chooseRubber);
+};
 
 // INITIAL FUNCTION
 const init = () => {
     duckBuilder(ducks);
+    events();
 };
 
 init();
